@@ -34,6 +34,10 @@ type JobData = {
   first_published: string;
 };
 
+// Sample job URL for demonstration
+const SAMPLE_JOB_URL =
+  "https://www.datavant.com/about/careers/open-roles/job?gh_jid=4534885008";
+
 export default function Home() {
   const [jobUrl, setJobUrl] = useState("");
   const [jobData, setJobData] = useState<JobData | null>(null);
@@ -72,6 +76,10 @@ export default function Home() {
     }
   };
 
+  const handleUseSample = () => {
+    setJobUrl(SAMPLE_JOB_URL);
+  };
+
   return (
     <main className="container mx-auto py-10 px-4 max-w-4xl">
       <h1 className="text-3xl font-bold mb-6 text-center">
@@ -80,10 +88,22 @@ export default function Home() {
 
       <Card className="mb-8">
         <CardHeader>
-          <CardTitle>Enter Job URL</CardTitle>
-          <CardDescription>
-            Paste a Datavant job URL to view details
-          </CardDescription>
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+            <div>
+              <CardTitle>Enter Job URL</CardTitle>
+              <CardDescription>
+                Paste a Datavant job URL to view details
+              </CardDescription>
+            </div>
+            <Button
+              variant="outline"
+              onClick={handleUseSample}
+              className="text-sm"
+              size="sm"
+            >
+              Try Sample
+            </Button>
+          </div>
         </CardHeader>
         <CardContent>
           <form

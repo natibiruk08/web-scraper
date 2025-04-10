@@ -7,6 +7,7 @@ A clean, modern web application built with Next.js that allows users to view job
 ## Features
 
 - **URL-based Job Lookup**: Enter a Datavant job URL to view detailed information
+- **Sample URL Button**: Try the application instantly with a pre-filled sample job URL
 - **Clean, Modern UI**: Minimalist design with clear information hierarchy
 - **Responsive Layout**: Works seamlessly on mobile, tablet, and desktop devices
 - **Collapsible Description**: View a preview of the job description with option to expand
