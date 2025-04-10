@@ -24,26 +24,30 @@ A clean, modern web application built with Next.js that allows users to view job
 ## Installation
 
 1. Clone the repository:
-   \`\`\`bash
-   git clone https://github.com/natibiruk08/datavant-job-viewer.git
-   cd datavant-job-viewer
-   \`\`\`
+
+   ```bash
+   git clone https://github.com/natibiruk08/web-scraper.git
+   cd web-scraper
+   ```
 
 2. Install dependencies:
-   \`\`\`bash
+
+   ```bash
    npm install
-   \`\`\`
+   ```
 
 3. Install shadcn/ui components:
-   \`\`\`bash
+
+   ```bash
    npx shadcn@latest init
    npx shadcn@latest add button card input badge separator
-   \`\`\`
+   ```
 
 4. Run the development server:
-   \`\`\`bash
+
+   ```bash
    npm run dev
-   \`\`\`
+   ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
@@ -65,7 +69,7 @@ The application includes a simple API route:
 
 ## Project Structure
 
-\`\`\`
+```
 datavant-job-viewer/
 ├── app/
 │ ├── api/
@@ -78,7 +82,7 @@ datavant-job-viewer/
 │ └── ui/ # shadcn/ui components
 ├── public/
 └── README.md
-\`\`\`
+```
 
 ## Key Components
 
