@@ -82,9 +82,12 @@ export default function Home() {
 
   return (
     <main className="container mx-auto py-10 px-4 max-w-4xl">
-      <h1 className="text-3xl font-bold mb-6 text-center">
-        Datavant Job Viewer
-      </h1>
+      <div className="mb-8 text-center">
+        <h2 className="text-2xl font-semibold mb-2">Find Job Details</h2>
+        <p className="text-slate-600">
+          Enter a Datavant job URL to view comprehensive details
+        </p>
+      </div>
 
       <Card className="mb-8">
         <CardHeader>
