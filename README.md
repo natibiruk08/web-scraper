@@ -1,36 +1,134 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Datavant Job Viewer
 
-## Getting Started
+A clean, modern web application built with Next.js that allows users to view job details from Datavant's career page by simply entering a job URL.
 
-First, run the development server:
+![Datavant Job Viewer Screenshot](/placeholder.svg?height=400&width=800)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **URL-based Job Lookup**: Enter a Datavant job URL to view detailed information
+- **Clean, Modern UI**: Minimalist design with clear information hierarchy
+- **Responsive Layout**: Works seamlessly on mobile, tablet, and desktop devices
+- **Collapsible Description**: View a preview of the job description with option to expand
+- **Direct API Integration**: Fetches job data directly from Greenhouse API
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Technologies Used
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Next.js 15**: React framework with App Router
+- **TypeScript**: For type safety and better developer experience
+- **Tailwind CSS**: For styling and responsive design
+- **shadcn/ui**: Component library for UI elements
+- **Lucide React**: For icons
 
-## Learn More
+## Installation
 
-To learn more about Next.js, take a look at the following resources:
+1. Clone the repository:
+   \`\`\`bash
+   git clone https://github.com/natibiruk08/datavant-job-viewer.git
+   cd datavant-job-viewer
+   \`\`\`
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+2. Install dependencies:
+   \`\`\`bash
+   npm install
+   \`\`\`
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+3. Install shadcn/ui components:
+   \`\`\`bash
+   npx shadcn@latest init
+   npx shadcn@latest add button card input badge separator
+   \`\`\`
 
-## Deploy on Vercel
+4. Run the development server:
+   \`\`\`bash
+   npm run dev
+   \`\`\`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Usage
+
+1. Enter a Datavant job URL in the format: `https://www.datavant.com/about/careers/open-roles/job?gh_jid=4534885008`
+2. Click "View Job" to fetch and display the job details
+3. Use the "See More" button to expand the job description
+4. Click "Apply Now" to go to the official application page
+
+## API Endpoints
+
+The application includes a simple API route:
+
+- **GET /api/job**: Fetches job data from the Greenhouse API
+  - Query Parameters:
+    - `id`: The Greenhouse job ID (extracted from the URL)
+  - Response: JSON object containing job details
+
+## Project Structure
+
+\`\`\`
+datavant-job-viewer/
+├── app/
+│ ├── api/
+│ │ └── job/
+│ │ └── route.ts # API endpoint for fetching job data
+│ ├── page.tsx # Main application page
+│ └── layout.tsx # Root layout
+├── components/
+│ ├── job-details.tsx # Job details display component
+│ └── ui/ # shadcn/ui components
+├── public/
+└── README.md
+\`\`\`
+
+## Key Components
+
+### `app/page.tsx`
+
+The main page component that handles:
+
+- URL input form
+- API request state management
+- Error handling
+- Rendering the JobDetails component
+
+### `components/job-details.tsx`
+
+Displays the job information with:
+
+- Job title, company, and metadata
+- Collapsible job description
+- Apply button
+- Formatted dates and organized information
+
+### `app/api/job/route.ts`
+
+API route that:
+
+- Accepts a job ID
+- Fetches data from the Greenhouse API
+- Returns formatted job data
+
+## Dependencies
+
+- **Next.js**: `^15.3.0`
+- **React**: `^19.0.0`
+- **React DOM**: `^19.0.0`
+- **TypeScript**: `^5`
+- **Tailwind CSS**: `^4`
+- **Lucide React**: `^0.294.0`
+
+## Future Improvements
+
+- Add caching for job data to reduce API calls
+- Implement search functionality for finding jobs by keyword
+- Add pagination for browsing multiple job listings
+- Create a favorites system for saving interesting job postings
+- Add authentication for personalized experiences
+- Implement analytics to track popular job listings
+
+## License
+
+MIT
+
+---
+
+Created with ❤️ using Next.js and shadcn/ui
