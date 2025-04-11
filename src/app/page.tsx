@@ -14,25 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Loader2 } from "lucide-react";
 import { useState } from "react";
-
-type JobData = {
-  id: number;
-  title: string;
-  company_name: string;
-  location: { name: string };
-  requisition_id: string;
-  absolute_url: string;
-  content: string;
-  metadata: Array<{
-    name: string;
-    value: string | { name: string };
-    value_type: string;
-  }>;
-  departments: Array<{ name: string }>;
-  offices: Array<{ name: string }>;
-  updated_at: string;
-  first_published: string;
-};
+import { JobData } from "../lib/types.js";
 
 // Sample job URL for demonstration
 const SAMPLE_JOB_URL =
@@ -50,17 +32,15 @@ export default function Home() {
     setError(null);
 
     try {
-      // Extract job ID from URL
       const url = new URL(jobUrl);
-      const jobId = url.searchParams.get("gh_jid");
 
-      if (!jobId) {
-        throw new Error(
-          "Invalid job URL. Please ensure it contains a gh_jid parameter."
-        );
-      }
-
-      const response = await fetch(`/api/job?id=${jobId}`);
+      const response = await fetch("/api/job", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          url,
+        }),
+      });
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -141,7 +121,7 @@ export default function Home() {
         </div>
       )}
 
-      {jobData && <JobDetails job={jobData} />}
+      {jobData && <JobDetails job={jobData} jobUrl={jobUrl} />}
     </main>
   );
 }

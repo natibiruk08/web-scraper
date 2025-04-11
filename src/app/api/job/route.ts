@@ -1,35 +1,70 @@
 import { NextResponse } from "next/server";
+import puppeteer from "puppeteer";
 
-export async function GET(request: Request) {
-  const { searchParams } = new URL(request.url);
-  const jobId = searchParams.get("id");
-
-  if (!jobId) {
-    return NextResponse.json({ error: "Job ID is required" }, { status: 400 });
-  }
-
+export async function POST(request: Request) {
   try {
-    const response = await fetch(
-      `https://boards-api.greenhouse.io/v1/boards/datavant2/jobs/${jobId}`
-    );
+    const body = await request.json();
+    const jobUrl = body.url;
 
-    if (!response.ok) {
+    if (!jobUrl) {
       return NextResponse.json(
-        {
-          error: `Failed to fetch job data: ${response.status} ${response.statusText}`,
-        },
-        { status: response.status }
+        { error: "Job URL is required" },
+        { status: 400 }
       );
     }
 
-    const data = await response.json();
-    return NextResponse.json(data);
+    const browser = await puppeteer.launch({
+      headless: "shell",
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+    });
+
+    const page = await browser.newPage();
+    await page.goto(jobUrl, { waitUntil: "networkidle0" });
+
+    const rawJobData = await page.evaluate(() => {
+      const title = document.querySelector("h1")?.textContent?.trim() || "";
+      const identifier =
+        document.querySelector(".identifier")?.textContent?.trim() || "";
+      const location =
+        document.querySelector(".location")?.textContent?.trim() || "";
+      const employeeType =
+        document.querySelector(".employee-type")?.textContent?.trim() || "";
+      const description =
+        document.getElementById("job-description")?.innerHTML || "";
+
+      const payRangeEl = document.querySelector(".pay-range");
+      let payRange = "";
+
+      if (payRangeEl) {
+        const spans = Array.from(payRangeEl.querySelectorAll("span")).map(
+          (el) => el.textContent?.trim()
+        );
+        payRange = spans.filter(Boolean).join(" ");
+      }
+      return {
+        title,
+        identifier,
+        location,
+        employeeType,
+        description,
+        payRange,
+      };
+    });
+
+    await browser.close();
+
+    console.log({ rawJobData: rawJobData.payRange });
+
+    const jobData = {
+      ...rawJobData,
+    };
+
+    return NextResponse.json(jobData);
   } catch (error) {
-    console.error("Error fetching job data:", error);
+    console.error("Puppeteer scraping error:", error);
     return NextResponse.json(
       {
-        error:
-          "Failed to fetch job data. Please check the job ID and try again.",
+        error: "Failed to scrape job data. Try again later.",
       },
       { status: 500 }
     );

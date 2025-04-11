@@ -11,7 +11,7 @@ A clean, modern web application built with Next.js that allows users to view job
 - **Clean, Modern UI**: Minimalist design with clear information hierarchy
 - **Responsive Layout**: Works seamlessly on mobile, tablet, and desktop devices
 - **Collapsible Description**: View a preview of the job description with option to expand
-- **Direct API Integration**: Fetches job data directly from Greenhouse API
+- **Web Scraping with Puppeteer**: Uses Puppeteer to dynamically scrape job data from the Datavant careers page
 
 ## Technologies Used
 
@@ -20,6 +20,7 @@ A clean, modern web application built with Next.js that allows users to view job
 - **Tailwind CSS**: For styling and responsive design
 - **shadcn/ui**: Component library for UI elements
 - **Lucide React**: For icons
+- **Puppeteer**: Headless browser used for scraping job content from dynamic pages
 
 ## Installation
 
@@ -120,6 +121,7 @@ API route that:
 - **TypeScript**: `^5`
 - **Tailwind CSS**: `^4`
 - **Lucide React**: `^0.294.0`
+- **Puppeteer**: `^24.6.1`
 
 ## Future Improvements
 
