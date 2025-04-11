@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
-import puppeteer from "puppeteer";
+
+import chromium from "@sparticuz/chromium";
+import puppeteer from "puppeteer-core";
 
 export async function POST(request: Request) {
   try {
@@ -14,8 +16,10 @@ export async function POST(request: Request) {
     }
 
     const browser = await puppeteer.launch({
-      headless: "shell",
-      args: ["--no-sandbox", "--disable-setuid-sandbox"],
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath(),
+      headless: chromium.headless,
     });
 
     const page = await browser.newPage();
@@ -52,8 +56,6 @@ export async function POST(request: Request) {
     });
 
     await browser.close();
-
-    console.log({ rawJobData: rawJobData.payRange });
 
     const jobData = {
       ...rawJobData,
