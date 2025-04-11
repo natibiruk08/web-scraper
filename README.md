@@ -34,20 +34,20 @@ A clean, modern web application built with Next.js that allows users to view job
 2. Install dependencies:
 
    ```bash
-   npm install
+   pnpm install
    ```
 
 3. Install shadcn/ui components:
 
    ```bash
-   npx shadcn@latest init
-   npx shadcn@latest add button card input badge separator
+   pnpx shadcn@latest init
+   pnpx shadcn@latest add button card input badge separator
    ```
 
 4. Run the development server:
 
    ```bash
-   npm run dev
+   pnpm run dev
    ```
 
 5. Open [http://localhost:3000](http://localhost:3000) in your browser.
